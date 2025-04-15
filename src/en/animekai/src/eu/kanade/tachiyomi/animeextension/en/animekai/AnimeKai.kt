@@ -104,7 +104,7 @@ class AnimeKai : AnimeHttpSource() {
 
     override fun videoListParse(response: Response): List<Video> {
         val doc = response.asJsoup()
-\\Add Quality Preference (If someone want to make it)
+\*Add Quality Preference (If someone want to make it)*/
 
         val preferredServer = preferences.getString(prefServerKey, defaultServer)!!
         val preferredSubtype = preferences.getString(prefSubtypeKey, defaultSubtype)!!
