@@ -15,6 +15,10 @@ class Kaido : ZoroTheme(
         "StreamTape",
     ),
 ) {
+    override val id = 5569316556494057205L
+
+    override val ajaxRoute = "/v2"
+    
     private val streamtapeExtractor by lazy { StreamTapeExtractor(client) }
     private val megaCloudExtractor by lazy { MegaCloudExtractor(client, headers, preferences) }
 
