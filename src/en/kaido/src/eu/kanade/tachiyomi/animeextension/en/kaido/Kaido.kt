@@ -26,6 +26,14 @@ class Kaido : ZoroTheme(
     private val streamtapeExtractor by lazy { StreamTapeExtractor(client) }
     private val megaCloudExtractor by lazy { MegaCloudExtractor(client, headers, preferences) }
 
+    override fun latestUpdatesRequest(page: Int): Request = GET("$baseUrl/recently-updated?page=$page", docHeaders)
+
+    override fun popularAnimeFromElement(element: Element): SAnime {
+        return super.popularAnimeFromElement(element).apply {
+            url = url.substringBefore("?")
+        }
+    }
+
     override fun extractVideo(server: VideoData): List<Video> {
         return when (server.name) {
             "StreamTape" -> {
