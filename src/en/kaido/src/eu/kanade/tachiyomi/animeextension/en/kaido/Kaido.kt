@@ -4,6 +4,10 @@ import eu.kanade.tachiyomi.animesource.model.Video
 import eu.kanade.tachiyomi.lib.megacloudextractor.MegaCloudExtractor
 import eu.kanade.tachiyomi.lib.streamtapeextractor.StreamTapeExtractor
 import eu.kanade.tachiyomi.multisrc.zorotheme.ZoroTheme
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import okhttp3.Request
 
 class Kaido : ZoroTheme(
     "en",
@@ -33,4 +37,17 @@ class Kaido : ZoroTheme(
             else -> emptyList()
         }
     }
+
+    // Debugging: Log the JSON response to troubleshoot the missing 'html' issue
+    private fun logApiResponse(request: Request): String {
+        val response = client.newCall(request).execute()
+        val responseBody = response.body?.string()
+        println("Response Body: $responseBody")
+        return responseBody ?: throw Exception("Response body is null")
+    }
 }
+
+@Serializable
+data class HtmlResponse(
+    val html: String? = null // Allow nullable to handle missing 'html' gracefully
+)
